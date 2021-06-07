@@ -6,7 +6,6 @@ function addText(range, e) {
     range.map(el => {
         summ += el
     })
-    console.log(e)
     
     text.innerHTML = (summ/range.length).toFixed(2);
 }
@@ -48,9 +47,6 @@ Highcharts.getJSON('test.json', function (data) {
                 count: 1,
                 text: '1 мес',
                 title: '1 месяц',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'month',
                 count: 3,
@@ -64,52 +60,40 @@ Highcharts.getJSON('test.json', function (data) {
                 count: 6,
                 text: '6 мес',
                 title: 'View 6 months',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'year',
                 count: 1,
                 text: '1 год',
                 title: 'View 1 year',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'ytd',
                 text: 'YTD',
                 title: 'С начала года',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             },{
                 type: 'year',
                 count: 2,
                 text: '2 года',
                 title: 'View 1 year',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             },{
                 type: 'year',
                 count: 5,
                 text: '5 лет',
                 title: 'View 1 year',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'all',
                 text: 'All',
                 title: 'View all',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }]
         },
 
         title: {
             text: ''
+        },
+
+        chart: {
+            events: {
+                redraw: () => addText(chart.series[0].processedYData)
+            }
         },
 
         scrollbar: {
@@ -177,6 +161,8 @@ Highcharts.getJSON('test.json', function (data) {
             showFirstLabel: false
         }],
     });
+    
+    addText(chart.series[0].processedYData)
     
 });
 
