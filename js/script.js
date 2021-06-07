@@ -1,37 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const text = document.querySelector('.text')
-
-function addText(range) {
-    let proc = 0;
-    switch(range) {
-        case 'week':  
-            proc = 2;
-            break;
-        case 'month': 
-            proc = 4;
-            break;
-
-        case '3month':  
-            proc = 6;
-            break;
-        case '6month':  
-            proc = 6;
-            break;
-        case 'year':  
-            proc = 6;
-            break;
-        case 'ytd':  
-            proc = 6;
-            break;
-        case '2year':  
-            proc = 6;
-            break;
-        default:
-            proc = 100; 
-            break;
-    }
-
-    text.innerHTML = proc;
+    let text = document.querySelector('.text')
+function addText(range, e) {
+    let summ = 0
+    
+    range.map(el => {
+        summ += el
+    })
+    console.log(e)
+    
+    text.innerHTML = (summ/range.length).toFixed(2);
 }
 
 Highcharts.getJSON('test.json', function (data) {
@@ -42,8 +19,8 @@ Highcharts.getJSON('test.json', function (data) {
             parseFloat(elem[1])
         ]
     })
-    Highcharts.stockChart('container', {
-
+    
+    const chart = Highcharts.stockChart('container', {
         rangeSelector: {
             selected: 3,
             inputEnabled: false,
@@ -64,11 +41,7 @@ Highcharts.getJSON('test.json', function (data) {
                     units: [['day', [1]]]
                 },
                 events:{
-                    click: (e) =>  {
-                        addText('week')
-                        console.log(e)
-                }     
-                    
+                    click: (e) => addText(chart.series[0].processedYData, e)
                 }
             }, {
                 type: 'month',
@@ -76,7 +49,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '1 мес',
                 title: '1 месяц',
                 events:{
-                    click: () => addText('month')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             }, {
                 type: 'month',
@@ -84,7 +57,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '3 мес',
                 title: 'View 3 months',
                 events:{
-                    click:  () => addText('3month')
+                    click:  () => addText(chart.series[0].processedYData)
                 }
             }, {
                 type: 'month',
@@ -92,7 +65,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '6 мес',
                 title: 'View 6 months',
                 events:{
-                    click: () => addText('6month')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             }, {
                 type: 'year',
@@ -100,14 +73,14 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '1 год',
                 title: 'View 1 year',
                 events:{
-                    click: () => addText('year')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             }, {
                 type: 'ytd',
                 text: 'YTD',
                 title: 'С начала года',
                 events:{
-                    click: () => addText('ytd')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             },{
                 type: 'year',
@@ -115,7 +88,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '2 года',
                 title: 'View 1 year',
                 events:{
-                    click: () => addText('2year')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             },{
                 type: 'year',
@@ -123,14 +96,14 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '5 лет',
                 title: 'View 1 year',
                 events:{
-                    click: () => addText('5year')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             }, {
                 type: 'all',
                 text: 'All',
                 title: 'View all',
                 events:{
-                    click: () => addText('all')
+                    click: () => addText(chart.series[0].processedYData)
                 }
             }]
         },
@@ -204,6 +177,7 @@ Highcharts.getJSON('test.json', function (data) {
             showFirstLabel: false
         }],
     });
+    
 });
 
 })
