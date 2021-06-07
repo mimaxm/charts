@@ -6,11 +6,12 @@ function addText(range, e) {
     range.map(el => {
         summ += el
     })
-    console.log(e)
     
     text.innerHTML = (summ/range.length).toFixed(2);
 }
 
+const name = 'Доллеры'
+moment.locale('ru')
 Highcharts.getJSON('test.json', function (data) {
     // Create the chart
     const _data = data.map((elem) => {
@@ -48,9 +49,6 @@ Highcharts.getJSON('test.json', function (data) {
                 count: 1,
                 text: '1 мес',
                 title: '1 месяц',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'month',
                 count: 3,
@@ -64,52 +62,40 @@ Highcharts.getJSON('test.json', function (data) {
                 count: 6,
                 text: '6 мес',
                 title: 'View 6 months',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'year',
                 count: 1,
                 text: '1 год',
                 title: 'View 1 year',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'ytd',
                 text: 'YTD',
                 title: 'С начала года',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             },{
                 type: 'year',
                 count: 2,
                 text: '2 года',
                 title: 'View 1 year',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             },{
                 type: 'year',
                 count: 5,
                 text: '5 лет',
                 title: 'View 1 year',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }, {
                 type: 'all',
                 text: 'All',
                 title: 'View all',
-                events:{
-                    click: () => addText(chart.series[0].processedYData)
-                }
             }]
         },
 
         title: {
             text: ''
+        },
+
+        chart: {
+            events: {
+                redraw: () => addText(chart.series[0].processedYData)
+            }
         },
 
         scrollbar: {
@@ -129,7 +115,7 @@ Highcharts.getJSON('test.json', function (data) {
         },
 
         series: [{
-            name: 'Название графика',
+            name: name,
             data: _data,
             tooltip: {
                 valueDecimals: 2
@@ -140,8 +126,7 @@ Highcharts.getJSON('test.json', function (data) {
             enabled: true,
         },
 
-            colors: ['#5ecba1', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-            '#FF9655', '#FFF263', '#6AF9C4'],
+        colors: ['#5ecba1', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 
         xAxis: {
             labels:{
@@ -161,7 +146,7 @@ Highcharts.getJSON('test.json', function (data) {
                 enabled: false,
             },
 
-        }, { // right y axis
+        }, {
             linkedTo: 0,
             gridLineWidth: 0,
             opposite: true,
@@ -176,71 +161,16 @@ Highcharts.getJSON('test.json', function (data) {
             },
             showFirstLabel: false
         }],
+
+        tooltip: {
+            formatter: function() {
+                return `${name}: <b> ${this.y} </b> <br> Дата: <b> ${moment(new Date(this.x)).format('DD MMMM YYYY')} </b>` ;
+            }
+        }
     });
+    
+    addText(chart.series[0].processedYData)
     
 });
 
 })
-
-// Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
-//     // Create the chart
-//     Highcharts.Chart('container', {
-
-
-//         rangeSelector: {
-//             selected: 1
-//         },
-
-//         title: {
-//             text: 'Text'
-//         },
-
-//         series: [{
-//             name: 'AAPL',
-//             data: data,
-//             tooltip: {
-//                 valueDecimals: 2
-//             }
-//         }]
-//     });
-// });
-
-// Highcharts.theme = {
-//     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-//             '#FF9655', '#FFF263', '#6AF9C4'],
-//     chart: {
-//         backgroundColor: {
-//             linearGradient: [0, 0, 500, 500],
-//             stops: [
-//                 [0, 'rgb(255, 255, 255)'],
-//                 [1, 'rgb(240, 240, 255)']
-//             ]
-//         },
-//     },
-//     title: {
-//         style: {
-//             color: '#000',
-//             font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-//         }
-//     },
-//     subtitle: {
-//         style: {
-//             color: '#666666',
-//             font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-//         }
-//     },
-//     legend: {
-//         itemStyle: {
-//             font: '9pt Trebuchet MS, Verdana, sans-serif',
-//             color: 'black'
-//         },
-//         itemHoverStyle:{
-//             color: 'gray'
-//         }
-//     },
-//     navigator: {
-//         enabled:false,
-//     }
-
-    
-// };
