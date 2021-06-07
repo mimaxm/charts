@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = document.querySelector('.text')
 
 function addText(range) {
-    const proc = 0;
+    let proc = 0;
     switch(range) {
         case 'week':  
             proc = 2;
@@ -29,7 +29,7 @@ function addText(range) {
         default:
             proc = 100; 
             break;
-      }
+    }
 
     text.innerHTML = proc;
 }
@@ -64,7 +64,10 @@ Highcharts.getJSON('test.json', function (data) {
                     units: [['day', [1]]]
                 },
                 events:{
-                    click: () =>  addText('week')     
+                    click: (e) =>  {
+                        addText('week')
+                        console.log(e)
+                }     
                     
                 }
             }, {
