@@ -1,9 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
     const text = document.querySelector('.text')
 
-function addText(number) {
-    text.innerHTML = number;
-    console.log(number);
+function addText(range) {
+    const proc = 0;
+    switch(range) {
+        case 'week':  
+            proc = 2;
+            break;
+        case 'month': 
+            proc = 4;
+            break;
+
+        case '3month':  
+            proc = 6;
+            break;
+        case '6month':  
+            proc = 6;
+            break;
+        case 'year':  
+            proc = 6;
+            break;
+        case 'ytd':  
+            proc = 6;
+            break;
+        case '2year':  
+            proc = 6;
+            break;
+        default:
+            proc = 100; 
+            break;
+      }
+
+    text.innerHTML = proc;
 }
 
 Highcharts.getJSON('test.json', function (data) {
@@ -36,9 +64,8 @@ Highcharts.getJSON('test.json', function (data) {
                     units: [['day', [1]]]
                 },
                 events:{
-                    click: function() {
-                        addText(1)
-                    }
+                    click: () =>  addText('week')     
+                    
                 }
             }, {
                 type: 'month',
@@ -46,7 +73,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '1 мес',
                 title: '1 месяц',
                 events:{
-                    click: addText(12)
+                    click: () => addText('month')
                 }
             }, {
                 type: 'month',
@@ -54,7 +81,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '3 мес',
                 title: 'View 3 months',
                 events:{
-                    click: addText(2)
+                    click:  () => addText('3month')
                 }
             }, {
                 type: 'month',
@@ -62,7 +89,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '6 мес',
                 title: 'View 6 months',
                 events:{
-                    click: addText(10)
+                    click: () => addText('6month')
                 }
             }, {
                 type: 'year',
@@ -70,14 +97,14 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '1 год',
                 title: 'View 1 year',
                 events:{
-                    click: addText(15)
+                    click: () => addText('year')
                 }
             }, {
                 type: 'ytd',
                 text: 'YTD',
                 title: 'С начала года',
                 events:{
-                    click: addText(16)
+                    click: () => addText('ytd')
                 }
             },{
                 type: 'year',
@@ -85,7 +112,7 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '2 года',
                 title: 'View 1 year',
                 events:{
-                    click: addText(17)
+                    click: () => addText('2year')
                 }
             },{
                 type: 'year',
@@ -93,14 +120,14 @@ Highcharts.getJSON('test.json', function (data) {
                 text: '5 лет',
                 title: 'View 1 year',
                 events:{
-                    click: addText(50)
+                    click: () => addText('5year')
                 }
             }, {
                 type: 'all',
                 text: 'All',
                 title: 'View all',
                 events:{
-                    click: addText(100)
+                    click: () => addText('all')
                 }
             }]
         },
