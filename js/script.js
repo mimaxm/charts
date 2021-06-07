@@ -1,4 +1,11 @@
-Highcharts.getJSON('../test.json', function (data) {
+document.addEventListener('DOMContentLoaded', () => {
+    const text = document.querySelector('.text')
+
+function addText(number) {
+    text.innerHTML = number
+}
+
+Highcharts.getJSON('test.json', function (data) {
     // Create the chart
     const _data = data.map((elem) => {
         return [
@@ -26,45 +33,72 @@ Highcharts.getJSON('../test.json', function (data) {
                 dataGrouping: {
                     forced: true,
                     units: [['day', [1]]]
+                },
+                events:{
+                    click: addText(12)
                 }
             }, {
                 type: 'month',
                 count: 1,
                 text: '1 мес',
-                title: '1 месяц'
+                title: '1 месяц',
+                events:{
+                    click: addText(12)
+                }
             }, {
                 type: 'month',
                 count: 3,
                 text: '3 мес',
-                title: 'View 3 months'
+                title: 'View 3 months',
+                events:{
+                    click: addText(2)
+                }
             }, {
                 type: 'month',
                 count: 6,
                 text: '6 мес',
-                title: 'View 6 months'
+                title: 'View 6 months',
+                events:{
+                    click: addText(10)
+                }
             }, {
                 type: 'year',
                 count: 1,
                 text: '1 год',
-                title: 'View 1 year'
+                title: 'View 1 year',
+                events:{
+                    click: addText(15)
+                }
             }, {
                 type: 'ytd',
                 text: 'YTD',
-                title: 'С начала года'
+                title: 'С начала года',
+                events:{
+                    click: addText(16)
+                }
             },{
                 type: 'year',
                 count: 2,
                 text: '2 года',
-                title: 'View 1 year'
+                title: 'View 1 year',
+                events:{
+                    click: addText(17)
+                }
             },{
                 type: 'year',
                 count: 5,
                 text: '5 лет',
-                title: 'View 1 year'
+                title: 'View 1 year',
+                events:{
+                    click: addText(50)
+                }
             }, {
                 type: 'all',
                 text: 'All',
-                title: 'View all'
+                title: 'View all',
+                events:{
+                    click: addText(100)
+                }
             }]
         },
 
@@ -138,6 +172,8 @@ Highcharts.getJSON('../test.json', function (data) {
         }],
     });
 });
+
+})
 
 // Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
 //     // Create the chart
