@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = document.querySelector('.text')
 
 function addText(number) {
-    text.innerHTML = number
+    text.innerHTML = number;
+    console.log(number);
 }
 
 Highcharts.getJSON('test.json', function (data) {
@@ -35,7 +36,9 @@ Highcharts.getJSON('test.json', function (data) {
                     units: [['day', [1]]]
                 },
                 events:{
-                    click: addText(12)
+                    click: function() {
+                        addText(1)
+                    }
                 }
             }, {
                 type: 'month',
