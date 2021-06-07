@@ -10,6 +10,8 @@ function addText(range, e) {
     text.innerHTML = (summ/range.length).toFixed(2);
 }
 
+const name = 'Доллеры'
+moment.locale('ru')
 Highcharts.getJSON('test.json', function (data) {
     // Create the chart
     const _data = data.map((elem) => {
@@ -113,7 +115,7 @@ Highcharts.getJSON('test.json', function (data) {
         },
 
         series: [{
-            name: 'Название графика',
+            name: name,
             data: _data,
             tooltip: {
                 valueDecimals: 2
@@ -124,8 +126,7 @@ Highcharts.getJSON('test.json', function (data) {
             enabled: true,
         },
 
-            colors: ['#5ecba1', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-            '#FF9655', '#FFF263', '#6AF9C4'],
+        colors: ['#5ecba1', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 
         xAxis: {
             labels:{
@@ -145,7 +146,7 @@ Highcharts.getJSON('test.json', function (data) {
                 enabled: false,
             },
 
-        }, { // right y axis
+        }, {
             linkedTo: 0,
             gridLineWidth: 0,
             opposite: true,
@@ -160,6 +161,12 @@ Highcharts.getJSON('test.json', function (data) {
             },
             showFirstLabel: false
         }],
+
+        tooltip: {
+            formatter: function() {
+                return `${name}: <b> ${this.y} </b> <br> Дата: <b> ${moment(new Date(this.x)).format('DD MMMM YYYY')} </b>` ;
+            }
+        }
     });
     
     addText(chart.series[0].processedYData)
@@ -167,66 +174,3 @@ Highcharts.getJSON('test.json', function (data) {
 });
 
 })
-
-// Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
-//     // Create the chart
-//     Highcharts.Chart('container', {
-
-
-//         rangeSelector: {
-//             selected: 1
-//         },
-
-//         title: {
-//             text: 'Text'
-//         },
-
-//         series: [{
-//             name: 'AAPL',
-//             data: data,
-//             tooltip: {
-//                 valueDecimals: 2
-//             }
-//         }]
-//     });
-// });
-
-// Highcharts.theme = {
-//     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-//             '#FF9655', '#FFF263', '#6AF9C4'],
-//     chart: {
-//         backgroundColor: {
-//             linearGradient: [0, 0, 500, 500],
-//             stops: [
-//                 [0, 'rgb(255, 255, 255)'],
-//                 [1, 'rgb(240, 240, 255)']
-//             ]
-//         },
-//     },
-//     title: {
-//         style: {
-//             color: '#000',
-//             font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-//         }
-//     },
-//     subtitle: {
-//         style: {
-//             color: '#666666',
-//             font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-//         }
-//     },
-//     legend: {
-//         itemStyle: {
-//             font: '9pt Trebuchet MS, Verdana, sans-serif',
-//             color: 'black'
-//         },
-//         itemHoverStyle:{
-//             color: 'gray'
-//         }
-//     },
-//     navigator: {
-//         enabled:false,
-//     }
-
-    
-// };
