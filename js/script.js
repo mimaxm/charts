@@ -1,29 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     let text = document.querySelector('.text')
-function addText(range, e) {
+    function addText(range, e) {
     let summ = 0
     
     range.map(el => {
         summ += el
     })
     
-    text.innerHTML = (summ/range.length).toFixed(2);
+    text.innerHTML = `Средняя доходность: ${(summ/range.length).toFixed(2)}%`;
 }
 
-const name = 'Доллеры'
+const name = 'Доходность'
 moment.locale('ru')
 Highcharts.getJSON('test.json', function (data) {
-    // Create the chart
+
+    //переводим в милисекунды и строку координат в число
     const _data = data.map((elem) => {
         return [
             elem[0]*1000,
             parseFloat(elem[1])
         ]
     })
-    
+
+    // Create the chart
     const chart = Highcharts.stockChart('container', {
         rangeSelector: {
-            selected: 3,
+            selected: 8,
             inputEnabled: false,
             labelStyle: {
                 display: 'none',
@@ -33,8 +35,8 @@ Highcharts.getJSON('test.json', function (data) {
                 fill: 'none',
             },
             buttons: [{
-                type: 'week',
-                count: 1,
+                type: 'day',
+                count: 5,
                 text: '5 дней',
                 title: '5 дней',
                 dataGrouping: {
@@ -53,7 +55,7 @@ Highcharts.getJSON('test.json', function (data) {
                 type: 'month',
                 count: 3,
                 text: '3 мес',
-                title: 'View 3 months',
+                title: '3 месяца',
                 events:{
                     click:  () => addText(chart.series[0].processedYData)
                 }
@@ -61,12 +63,12 @@ Highcharts.getJSON('test.json', function (data) {
                 type: 'month',
                 count: 6,
                 text: '6 мес',
-                title: 'View 6 months',
+                title: '6 месяцев',
             }, {
                 type: 'year',
                 count: 1,
                 text: '1 год',
-                title: 'View 1 year',
+                title: '1 год',
             }, {
                 type: 'ytd',
                 text: 'YTD',
@@ -75,16 +77,16 @@ Highcharts.getJSON('test.json', function (data) {
                 type: 'year',
                 count: 2,
                 text: '2 года',
-                title: 'View 1 year',
+                title: '2 года',
             },{
                 type: 'year',
                 count: 5,
                 text: '5 лет',
-                title: 'View 1 year',
+                title: '5 лет',
             }, {
                 type: 'all',
-                text: 'All',
-                title: 'View all',
+                text: 'Весь период',
+                title: 'За всё время',
             }]
         },
 
@@ -126,12 +128,11 @@ Highcharts.getJSON('test.json', function (data) {
             enabled: true,
         },
 
-        colors: ['#5ecba1', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+        colors: ['#5ecba1', '#50B432', '#ED561B'],
 
         xAxis: {
             labels:{
                 formatter: function(){
-
                     return moment(new Date(this.value)).format('DD.MM.YYYY'); // example for moment.js date library
                 },
             },
@@ -164,7 +165,7 @@ Highcharts.getJSON('test.json', function (data) {
 
         tooltip: {
             formatter: function() {
-                return `${name}: <b> ${this.y} </b> <br> Дата: <b> ${moment(new Date(this.x)).format('DD MMMM YYYY')} </b>` ;
+                return `${name}: <b> ${this.y}% </b> <br> <b> ${moment(new Date(this.x)).format('DD MMMM YYYY')} </b>` ;
             }
         }
     });
