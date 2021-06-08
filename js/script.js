@@ -7,20 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
         summ += el
     })
     
-    text.innerHTML = `Средняя доходность: ${(summ/range.length).toFixed(2)}%`;
+    text.innerHTML = `Средняя доходность за период: ${(summ/range.length).toFixed(2)}%`;
 }
+
+console.log()
 
 const name = 'Доходность'
 moment.locale('ru')
 Highcharts.getJSON('test.json', function (data) {
-
-    //переводим в милисекунды и строку координат в число
-    const _data = data.map((elem) => {
-        return [
-            elem[0]*1000,
-            parseFloat(elem[1])
-        ]
-    })
 
     // Create the chart
     const chart = Highcharts.stockChart('container', {
@@ -43,9 +37,7 @@ Highcharts.getJSON('test.json', function (data) {
                     forced: true,
                     units: [['day', [1]]]
                 },
-                events:{
-                    click: (e) => addText(chart.series[0].processedYData, e)
-                }
+
             }, {
                 type: 'month',
                 count: 1,
@@ -56,9 +48,7 @@ Highcharts.getJSON('test.json', function (data) {
                 count: 3,
                 text: '3 мес',
                 title: '3 месяца',
-                events:{
-                    click:  () => addText(chart.series[0].processedYData)
-                }
+
             }, {
                 type: 'month',
                 count: 6,
@@ -118,7 +108,7 @@ Highcharts.getJSON('test.json', function (data) {
 
         series: [{
             name: name,
-            data: _data,
+            data: data,
             tooltip: {
                 valueDecimals: 2
             },
@@ -131,41 +121,43 @@ Highcharts.getJSON('test.json', function (data) {
         colors: ['#5ecba1', '#50B432', '#ED561B'],
 
         xAxis: {
-            labels:{
-                formatter: function(){
-                    return moment(new Date(this.value)).format('DD.MM.YYYY'); // example for moment.js date library
-                },
+            type: "datetime",
+            crosshair: {
+                color: "#EBE9EA"
             },
             gridLineWidth: 1,
+            gridLineColor: "#EBE9EA",
+            labels: {
+                style: {
+                    color: "#9598A7"
+                },
+                format: "{value:%d.%m.%Y}"
+            },
+            lineColor: "#EBE9EA",
+            tickLength: 0,
+            tickWidth: 0
         },
 
         yAxis: [{
             labels: {
-                enabled: false,
+                align: 'left'
             },
-            title: {
-                enabled: false,
-            },
-
+            height: '100%',
+            resize: {
+                enabled: true
+            }
         }, {
-            linkedTo: 0,
-            gridLineWidth: 0,
-            opposite: true,
-            title: {
-                text: null
-            },
             labels: {
-                align: 'right',
-                x: -3,
-                y: 16,
-                format: '{value:.,0f}'
+                align: 'left'
             },
-            showFirstLabel: false
+            top: '80%',
+            height: '20%',
+            offset: 0
         }],
 
         tooltip: {
             formatter: function() {
-                return `${name}: <b> ${this.y}% </b> <br> <b> ${moment(new Date(this.x)).format('DD MMMM YYYY')} </b>` ;
+                return `${moment(new Date(this.x)).format('dd, D MMMM YYYY')} <br><span style='color:#5ecba1;'>&#9679;</span> ${name}: <b> ${this.y.toFixed(2)}% </b>` ;
             }
         }
     });
