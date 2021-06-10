@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let text = document.querySelector('.text')
+    let profitValue = document.querySelector('.strategy-prifit__value')
+    let profitText = document.querySelector('.strategy-prifit__text')
     function addText(range, e) {
     let summ = 0
     
@@ -7,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
         summ += el
     })
     
-    text.innerHTML = `Средняя доходность за период: ${(summ/range.length).toFixed(2)}%`;
+    profitValue.innerHTML = `${(summ/range.length).toFixed(2)}%`;
+    profitText.innerHTML = `Средняя доходность за период:`;
 }
 
 console.log()
