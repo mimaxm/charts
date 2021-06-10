@@ -9,17 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     profitValue.innerHTML = `${(summ/range.length).toFixed(2)}%`;
-    profitText.innerHTML = `Средняя доходность за период:`;
+    profitText.innerHTML = `<div>за выбранный период</div> <div>с учётом издержек</div>`;
 }
 
-console.log()
-
-const name = 'Доходность'
+const name = 'Доходность с учётом издержек *'
 moment.locale('ru')
 Highcharts.getJSON('test.json', function (data) {
 
     // Create the chart
-    const chart = Highcharts.stockChart('container', {
+    Highcharts.setOptions({
+        lang: {
+            rangeSelectorZoom: '',
+        },
+    });
+
+    const chart = Highcharts.stockChart('chart-container', {
+        chart: {
+            styledMode: true,
+        },
+        
         rangeSelector: {
             selected: 8,
             inputEnabled: false,
@@ -27,8 +35,22 @@ Highcharts.getJSON('test.json', function (data) {
                 display: 'none',
             },
             buttonTheme: {
-                width: '100px',
+                width: '100%',
                 fill: 'none',
+                style: {
+                    color: '#9598a7',
+                    fontWeight: '700',
+                },
+                states: {
+                    hover: {
+                        color: '#333',
+                        fill: 'none',
+                    },
+                    select: {
+                            color: '#333',
+                            fill: '#fff',
+                    }
+                }
             },
             buttons: [{
                 type: 'day',
@@ -118,6 +140,7 @@ Highcharts.getJSON('test.json', function (data) {
 
         legend: {
             enabled: true,
+            align: 'left',
         },
 
         colors: ['#5ecba1', '#50B432', '#ED561B'],

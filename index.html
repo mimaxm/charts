@@ -4,16 +4,26 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/style.css">
    <title>Document</title>
 </head>
 <body>
-   <div class="strategy-profit" style="display:flex; padding-right: 30px;">
-      <div class="strategy-prifit__text">
+   <div class="chart__wrap">
+      <h3 class="chart__title">
+         Доходность
+      </h3>
+      <div class="strategy-profit">
+         <div class="strategy-prifit__value">
+         </div>
+         <div class="strategy-prifit__text">
+         </div>
       </div>
-      <div class="strategy-prifit__value">
+      <div class="chart-container" id="chart-container">
+      </div>
+      <div class="chart__descr">
+         * доходность рассчитана на основе средней цены исполнения сигналов стратегии по счетам клиентов и включает в себя плату за услугу "Автоследование" в соответствии с тарифом стратегии.
       </div>
    </div>
-   <div id="container" style="width:60%; height:400px;"></div>
    
 
    <script src="https://code.highcharts.com/stock/highstock.js"></script>

@@ -1,0 +1,63 @@
+body {
+   font-family: "OpenSans", serif;
+   background-color: rgb(234, 239, 249);
+}
+
+.chart__wrap {
+   background-color: #fff;
+   width: 60%; 
+   padding: 20px;
+}
+
+.chart__title {
+   font-size: 1.3em;
+   font-weight: 700;
+   line-height: 1.75;
+   margin: 10px 0;
+}
+
+.strategy-profit {
+   display: flex;
+}
+
+.strategy-prifit__value {
+   font-size: 40px; 
+   font-weight: 700; 
+   line-height: .925; 
+   color: #5ecba1;
+}
+
+.strategy-prifit__text {
+   margin-left: 16px;
+   position: relative;
+   font-size: 13px;
+   font-weight: 600;
+   line-height: 1.25;
+   color: #9598a7;
+}
+
+.strategy-prifit__text::after {
+   content: '*';
+   position: absolute;
+   top: -5px;
+   right: -10px;
+   font-size: 16px;
+   font-weight: 700;
+   line-height: 1.375;
+   color: #ff6b69;
+}
+
+.highcharts-range-selector-group {
+   font-family: "OpenSans", serif;
+   font-size: 16px;
+}
+
+.highcharts-credits {
+   display: none;
+}
+
+.chart__descr {
+   font-size: 12px;
+   line-height: 1.2;
+   color: #9598a7;
+}
