@@ -4,22 +4,86 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="css/style.css">
    <title>Document</title>
 </head>
-<body>
+<body class="body">
+   <style>
+      .chart__wrap {
+         background-color: #fff;
+         width: 60%; 
+         padding: 20px;
+      }
+
+      .chart__title {
+         font-size: 1.3em;
+         font-weight: 700;
+         line-height: 1.75;
+         margin: 10px 0;
+      }
+
+      .strategy-profit {
+         display: flex;
+         margin-bottom: 20px;
+      }
+
+      .strategy-profit__value {
+         font-size: 40px; 
+         font-weight: 700; 
+         line-height: .925; 
+         color: #5ecba1;
+      }
+
+      .strategy-profit__text {
+         margin-left: 16px;
+         position: relative;
+         font-size: 13px;
+         font-weight: 600;
+         line-height: 1.25;
+         color: #9598a7;
+      }
+
+      .strategy-profit__text::after {
+         content: '*';
+         position: absolute;
+         top: -5px;
+         right: -10px;
+         font-size: 16px;
+         font-weight: 700;
+         line-height: 1.375;
+         color: #ff6b69;
+      }
+
+      .highcharts-range-selector-group {
+         font-family: 'Open Sans', sans-serif;
+         font-size: 14px;
+      }
+
+      .highcharts-credits {
+         display: none;
+      }
+
+      .chart__descr {
+         font-size: 12px;
+         line-height: 1.2;
+         color: #9598a7;
+      }
+   </style>
    <div class="chart__wrap">
       <h3 class="chart__title">
          Доходность
       </h3>
       <div class="strategy-profit">
-         <div class="strategy-prifit__value">
+         <div class="strategy-profit__value">
          </div>
-         <div class="strategy-prifit__text">
+         <div class="strategy-profit__text">
          </div>
       </div>
-      <div class="chart-container" id="chart-container">
+      <div class="chart-container" id="chart-container-1" data-url="http://127.0.0.1:5501/test.json">
       </div>
+      <div class="chart-container" id="chart-container-2" data-url="http://127.0.0.1:5501/test.json"></div>
       <div class="chart__descr">
          * доходность рассчитана на основе средней цены исполнения сигналов стратегии по счетам клиентов и включает в себя плату за услугу "Автоследование" в соответствии с тарифом стратегии.
       </div>
@@ -28,7 +92,6 @@
 
    <script src="https://code.highcharts.com/stock/highstock.js"></script>
    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
-   <script src="js/moment-with-locales.js"></script>
    <script src="js/script.js"></script>
 </body>
 </html>
