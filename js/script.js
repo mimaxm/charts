@@ -3,22 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function addText(chart, element) {        
         let wrap = element.parentElement;
         let chartSeriesProcessData = chart.series[0].processedYData;
-        let selectedAll = chart.rangeSelector.selected === 8;
+        let selectedAll = chart.rangeSelector.selected;
         let profitValue = wrap.querySelector('.strategy-profit__value');
         let profitText = wrap.querySelector('.strategy-profit__text');
-        let summ = 0;
+        let profit;
     
-        if (selectedAll) {
-            summ = chartSeriesProcessData[(chartSeriesProcessData.length - 1)] - chartSeriesProcessData[1];
-            console.log(summ);
+        if (selectedAll === 8) {
+            profit = chartSeriesProcessData[(chartSeriesProcessData.length - 1)] - chartSeriesProcessData[0];
+            console.log(true);
         } else {
-            summ = chartSeriesProcessData[(chartSeriesProcessData.length - 1)] - chartSeriesProcessData[0];
-            console.log(summ);
+            profit = chartSeriesProcessData[(chartSeriesProcessData.length - 1)] - chartSeriesProcessData[1];
+            console.log(false);
         };
         
-
-        profitValue.innerHTML = `${(summ).toFixed(2)}%`;
-        profitText.innerHTML = `<div>Средняя доходность за выбранный период </br> ${element.dataset.currency}, с учётом издержек</div>`;
+        profitValue.innerHTML = `${(profit).toFixed(2)}%`;
+        profitText.innerHTML = `<div>Доходность за выбранный период </br> ${element.dataset.currency}, с учётом издержек</div>`;
     }
 
     const name = 'Доходность с учётом издержек *';
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 chart: {
                     styledMode: true,
                 },
-                
                 rangeSelector: {
                     selected: 8,
                     inputEnabled: false,
@@ -221,9 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ss=(s=this.getSeconds())<10?('0'+s):s;
                 return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
             };
-        
 
-            
             addText(chart, chartId)
         });
     });
