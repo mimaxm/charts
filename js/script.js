@@ -1,22 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    function addText(range, element, period = false) {        
+    function addText(chart, element) {        
         let wrap = element.parentElement;
+        let chartSeriesProcessData = chart.series[0].processedYData;
+        let selectedAll = chart.rangeSelector.selected === 8;
         let profitValue = wrap.querySelector('.strategy-profit__value');
         let profitText = wrap.querySelector('.strategy-profit__text');
         let summ = 0;
-
-        if (period == true) {
-            // range.map(el => {
-            //     summ = range[(range.length - 1)] - range[1];
-                console.log(111);
-            // });
+    
+        if (selectedAll) {
+            summ = chartSeriesProcessData[(chartSeriesProcessData.length - 1)] - chartSeriesProcessData[1];
+            console.log(summ);
         } else {
-        // range.map(el => {
-        //     summ = range[(range.length - 6)] - range[0];
-            console.log(222);
-        // });
+            summ = chartSeriesProcessData[(chartSeriesProcessData.length - 1)] - chartSeriesProcessData[0];
+            console.log(summ);
         };
+        
 
         profitValue.innerHTML = `${(summ).toFixed(2)}%`;
         profitText.innerHTML = `<div>Средняя доходность за выбранный период </br> ${element.dataset.currency}, с учётом издержек</div>`;
@@ -71,73 +70,46 @@ document.addEventListener('DOMContentLoaded', () => {
                             forced: true,
                             units: [['day', [1]]]
                         },
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
                     }, {
                         type: 'month',
                         count: 1,
                         text: '1 мес',
                         title: '1 месяц',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
 
                     }, {
                         type: 'month',
                         count: 3,
                         text: '3 мес',
                         title: '3 месяца',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
         
                     }, {
                         type: 'month',
                         count: 6,
                         text: '6 мес',
                         title: '6 месяцев',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
                     }, {
                         type: 'year',
                         count: 1,
                         text: '1 год',
                         title: '1 год',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
                     }, {
                         type: 'ytd',
                         text: 'YTD',
                         title: 'С начала года',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
                     },{
                         type: 'year',
                         count: 2,
                         text: '2 года',
                         title: '2 года',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
                     },{
                         type: 'year',
                         count: 5,
                         text: '5 лет',
                         title: '5 лет',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, true);
-                        }
                     }, {
                         type: 'all',
                         text: 'Весь период',
                         title: 'За всё время',
-                        click: function() {
-                            addText(chart.series[0].processedYData, chartId, false);
-                        }
                     }]
                 },
         
@@ -147,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
                 chart: {
                     events: {
-                        redraw: () => addText(chart.series[0].processedYData, chartId, true),
+                        redraw: () => addText(chart, chartId),
                     },
                     tooltip: {
                         crosshairs: true,
@@ -252,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
 
             
-            addText(chart.series[0].processedYData, chartId, false)
+            addText(chart, chartId)
         });
     });
 });
