@@ -2,3 +2,18 @@
    font-family: 'Open Sans', sans-serif;
    background-color: rgb(234, 239, 249);
 }
+
+.highcharts-tooltip {
+   z-index: 9998 !important;
+}
+
+html {
+   box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+   box-sizing: inherit;
+   margin: 0;
+   padding: 0;

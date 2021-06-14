@@ -13,7 +13,8 @@
    <style>
       .chart__wrap {
          background-color: #fff;
-         width: 60%; 
+         display: block;
+         max-width: 100%;
          padding: 20px;
       }
 
@@ -70,6 +71,7 @@
          line-height: 1.2;
          color: #9598a7;
       }
+
    </style>
    <div class="chart__wrap">
       <h3 class="chart__title">
@@ -81,7 +83,7 @@
          <div class="strategy-profit__text">
          </div>
       </div>
-      <div class="chart-container" id="chart-container-1" data-url="http://127.0.0.1:5501/test.json"></div>
+      <div class="chart-container" id="chart-container-1" data-url="/test.json" data-currency="в долларах США"></div>
       <div class="chart__descr">
          * доходность рассчитана на основе средней цены исполнения сигналов стратегии по счетам клиентов и включает в себя плату за услугу "Автоследование" в соответствии с тарифом стратегии.
       </div>
@@ -96,7 +98,7 @@
          <div class="strategy-profit__text">
          </div>
       </div>
-      <div class="chart-container" id="chart-container-2" data-url="http://127.0.0.1:5501/test.json"></div>
+      <div class="chart-container" id="chart-container-2" data-url="/test.json" data-currency="в российских рублях"></div>
       <div class="chart__descr">
          * доходность рассчитана на основе средней цены исполнения сигналов стратегии по счетам клиентов и включает в себя плату за услугу "Автоследование" в соответствии с тарифом стратегии.
       </div>
